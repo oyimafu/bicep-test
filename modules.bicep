@@ -19,7 +19,7 @@ module containerApp1 'containerapp.bicep' = {
   params: {
     namePrefix: 'containerapp1'
     containerImage: 'ghcr.io/davidtucker/covid-data-api-demo:latest'
-    location: 'eastus'
+    location: location
     environment: environment
     containerAppEnvironmentId: containerAppEnvironment.outputs.containerAppEnvironmentId
   }
@@ -30,7 +30,7 @@ module containerApp2 'containerapp.bicep' = {
   params: {
     namePrefix: 'containerapp2'
     containerImage: 'ghcr.io/davidtucker/covid-data-api-demo:latest'
-    location: 'eastus'
+    location: location
     environment: environment
     containerAppEnvironmentId: containerAppEnvironment.outputs.containerAppEnvironmentId
   }
@@ -41,7 +41,7 @@ module containerApp3 'containerapp.bicep' = if(environment == 'prod') {
   params: {
     namePrefix: 'containerapp3'
     containerImage: 'ghcr.io/davidtucker/covid-data-api-demo:latest'
-    location: 'eastus'
+    location: location
     environment: environment
     containerAppEnvironmentId: containerAppEnvironment.outputs.containerAppEnvironmentId
   }
