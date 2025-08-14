@@ -1,29 +1,26 @@
-name: Deploy a Bicep file to Azure
+name: Deploy Bicep File
 
 on:
-  push:
-    branches: ['main']
+  workflow_dispatch:
 
 jobs:
-  deploy-bicep:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - uses: azure/login@v1
+      - name: Azure Login
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Bicep template
+      - name: Deploy Bicep File
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
           template: ./modules.bicep
           parameters: environment=dev
           failOnStdErr: false
+          scope: resourcegroup
